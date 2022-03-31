@@ -1,0 +1,176 @@
+﻿@* Classe de modelo da página *@
+@model AgendaWeb.Presentation.Models.EventoDashboardModel
+
+@{
+    //definindo a página de layout
+    Layout = "~/Views/Shared/Layout.cshtml";
+}
+
+<h5>Seja bem vindo a <strong>AgendaWeb</strong>!</h5>
+<p>Aqui você poderá cadastrar e gerenciar seus eventos, utilize o menu acima para começar!</p>
+<hr />
+
+@* Criando o formulário *@
+@using (Html.BeginForm())
+{
+    <div class="row">
+        <div class="col-md-3">
+            @Html.TextBoxFor(model => model.DataMin,
+        new { @class = "form-control", @type = "date" })
+            <div class="text-danger">
+                @Html.ValidationMessageFor(model => model.DataMin)
+            </div>
+        </div>
+        <div class="col-md-3">
+            @Html.TextBoxFor(model => model.DataMax,
+        new { @class = "form-control", @type = "date" })
+            <div class="text-danger">
+                @Html.ValidationMessageFor(model => model.DataMax)
+            </div>
+        </div>
+        <div class="col-md-6">
+            <input type="submit" value="Realizar Pesquisa" class="btn btn-success" />
+        </div>
+    </div>
+}
+
+<div class="row mt-3">
+    <div class="col-md-6">
+        @if (Model.ConsultaPrioridade != null)
+        {
+            <div class="table-responsive">
+                <table class="table table-sm table-hover">
+                    <thead>
+                        <tr>
+                            <th>Prioridade</th>
+                            <th>Quantidade</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.ConsultaPrioridade)
+                        {
+                            <tr>
+                                <td><strong>@item.Prioridade</strong></td>
+                                <td>@item.Quantidade</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+            <div id="grafico_prioridade"></div>
+        }
+    </div>
+    <div class="col-md-6">
+        @if (Model.ConsultaPrioridade != null)
+        {
+            <div class="table-responsive">
+                <table class="table table-sm table-hover">
+                    <thead>
+                        <tr>
+                            <th>Ativo / Inativo</th>
+                            <th>Quantidade</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.ConsultaAtivoInativo)
+                        {
+                            <tr>
+                                <td><strong>@item.Ativo</strong></td>
+                                <td>@item.Quantidade</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+            <div id="grafico_status"></div>
+        }
+    </div>
+</div>
+
+@* Utilizando a seção 'scripts' criada no Layout *@
+@section scripts {
+
+<!-- referencia do highcharts -->
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/highcharts-3d.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
+<script src="https://code.highcharts.com/modules/export-data.js"></script>
+
+<script>
+    var arrayPrioridades = [];
+    var arrayAtivosInativos = [];
+</script>
+
+@foreach(var item in Model.ConsultaPrioridade)
+{
+    <script>
+        arrayPrioridades.push(['@item.Prioridade', @item.Quantidade]);
+    </script>
+}
+
+
+@foreach(var item in Model.ConsultaAtivoInativo)
+{
+    <script>
+        arrayAtivosInativos.push(['@item.Ativo', @item.Quantidade]);
+    </script>
+}
+
+<script>
+
+    new Highcharts.Chart({
+            chart: {
+                type: 'pie',
+                renderTo: 'grafico_prioridade'
+            },
+            title: {
+                text: 'Quantidade de eventos por prioridade'
+            },
+            plotOptions: {
+                pie: {
+                    innerSize: '60%',
+                    dataLabels: {
+                        enable: true
+                    },
+                    showInLegend: true
+                }
+            },
+            credits: {
+                enabled: false
+            },
+            series: [{
+                data: arrayPrioridades
+            }],
+            colors: ['#d9534f', '#f0ad4e', '#5cb85c']
+        });
+
+        new Highcharts.Chart({
+            chart: {
+                type: 'pie',
+                renderTo: 'grafico_status'
+            },
+            title: {
+                text: 'Quantidade de eventos ativos/inativos'
+            },
+            plotOptions: {
+                pie: {
+                    innerSize: '60%',
+                    dataLabels: {
+                        enable: true
+                    },
+                    showInLegend: true
+                }
+            },
+            credits: {
+                enabled: false
+            },
+            series: [{
+                data: arrayAtivosInativos
+            }]
+        });
+
+</script>
+
+}
+
+

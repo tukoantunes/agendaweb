@@ -1,0 +1,52 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.32112.339
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AgendaWeb.Presentation", "AgendaWeb.Presentation\AgendaWeb.Presentation.csproj", "{99EDFF11-A606-459A-BD81-5ED327B72B18}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AgendaWeb.Infra.Data", "AgendaWeb.Infra.Data\AgendaWeb.Infra.Data.csproj", "{0DF33EEC-5005-4395-BC1C-7BEDA4A4F727}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1 - Presentation Layer", "1 - Presentation Layer", "{43C33A81-0169-457F-9C82-BE5325780F26}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2 - InfraStructure Layer", "2 - InfraStructure Layer", "{6946422F-A1C1-4C92-AD21-5785E82350D9}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2.1 - Data", "2.1 - Data", "{A9697DF7-E04C-4696-B004-DA0BA9F984B2}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2.2 - Reports", "2.2 - Reports", "{F6320451-C01E-41CC-8403-B7AC0BEA02F0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AgendaWeb.Infra.Reports", "AgendaWeb.Infra.Reports\AgendaWeb.Infra.Reports.csproj", "{51AEC10C-04E8-4125-ADD1-3D37CD5312C5}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{99EDFF11-A606-459A-BD81-5ED327B72B18}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{99EDFF11-A606-459A-BD81-5ED327B72B18}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{99EDFF11-A606-459A-BD81-5ED327B72B18}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{99EDFF11-A606-459A-BD81-5ED327B72B18}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0DF33EEC-5005-4395-BC1C-7BEDA4A4F727}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0DF33EEC-5005-4395-BC1C-7BEDA4A4F727}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0DF33EEC-5005-4395-BC1C-7BEDA4A4F727}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0DF33EEC-5005-4395-BC1C-7BEDA4A4F727}.Release|Any CPU.Build.0 = Release|Any CPU
+		{51AEC10C-04E8-4125-ADD1-3D37CD5312C5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{51AEC10C-04E8-4125-ADD1-3D37CD5312C5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{51AEC10C-04E8-4125-ADD1-3D37CD5312C5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{51AEC10C-04E8-4125-ADD1-3D37CD5312C5}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{99EDFF11-A606-459A-BD81-5ED327B72B18} = {43C33A81-0169-457F-9C82-BE5325780F26}
+		{0DF33EEC-5005-4395-BC1C-7BEDA4A4F727} = {A9697DF7-E04C-4696-B004-DA0BA9F984B2}
+		{A9697DF7-E04C-4696-B004-DA0BA9F984B2} = {6946422F-A1C1-4C92-AD21-5785E82350D9}
+		{F6320451-C01E-41CC-8403-B7AC0BEA02F0} = {6946422F-A1C1-4C92-AD21-5785E82350D9}
+		{51AEC10C-04E8-4125-ADD1-3D37CD5312C5} = {F6320451-C01E-41CC-8403-B7AC0BEA02F0}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {B2AE2BF7-3783-42C3-8E11-4C2FAC6284AF}
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,87 @@
+﻿@* Definindo a classe MODEL desta página *@
+@model AgendaWeb.Presentation.Models.AccountLoginModel
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Login</title>
+
+    <!-- referência para os arquivos CSS do projeto -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css"/>
+
+</head>
+<body class="bg-secondary">
+
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-md-4 offset-4">
+
+                <div class="card">
+                    <div class="card-body">
+
+                        <div class="text-center">
+                            <img src="https://www.cotiinformatica.com.br/imagens/logo-coti-informatica.png"/>
+                            <h5>Projeto <strong>AgendaWeb</strong></h5>
+                            <p>Acessar Conta de Usuário</p>
+                            <hr/>
+                        </div>
+
+                        <div class="mb-2 text-danger">
+                            <strong>@TempData["MensagemErro"]</strong>
+                        </div>
+
+                        @* Conteúdo do formulário *@
+                        @using(Html.BeginForm())
+                        {
+                            <label>Entre com seu email de acesso:</label>
+                            @Html.TextBoxFor(model => model.Email, 
+                                new { @class = "form-control", @placeholder = "Digite aqui" })
+                            <div class="text-danger">
+                                @Html.ValidationMessageFor(model => model.Email)
+                            </div>
+                            <br/>
+
+                            <label>Entre com sua senha:</label>
+                            @Html.PasswordFor(model => model.Senha, 
+                                new { @class = "form-control", @placeholder = "Digite aqui" })
+                            <div class="text-danger">
+                                @Html.ValidationMessageFor(model => model.Senha)
+                            </div>
+                            <br/>
+
+                            <div class="d-grid">
+                                <input type="submit" value="Acessar Agenda" class="btn btn-primary"/>
+                            </div>
+                        }
+
+                        <div class="d-grid mt-2">
+                            <a href="/Account/Register" class="btn btn-success">
+                                Não possui conta? <strong>Cadastre-se aqui!</strong>
+                            </a>
+                        </div>
+
+                        <div class="text-center mt-2">
+                            <small>AgendaWeb v1.0.0</small>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- arquivos do tipo javascript -->
+    <script src="/js/bootstrap.min.js"></script>
+
+</body>
+</html>
+
+
+

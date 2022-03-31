@@ -1,0 +1,160 @@
+﻿@* Classe de modelo utilizada nesta página *@
+@model AgendaWeb.Presentation.Models.EventoConsultaModel
+
+@{
+    //definindo a página de layout
+    Layout = "~/Views/Shared/Layout.cshtml";
+}
+
+<h5>Consulta de Eventos</h5>
+Informe o período de datas para pesquisa de eventos.
+<hr />
+
+@* Formulário para pesquisa *@
+@using (Html.BeginForm())
+{
+    <div class="row mb-3">
+        <div class="col-md-3">
+
+            @Html.TextBoxFor(model => model.DataMin,
+        new { @class = "form-control", @type = "date" })
+
+            <span class="text-danger">
+                @Html.ValidationMessageFor(model => model.DataMin)
+            </span>
+
+        </div>
+        <div class="col-md-3">
+
+            @Html.TextBoxFor(model => model.DataMax,
+        new { @class = "form-control", @type = "date" })
+
+            <span class="text-danger">
+                @Html.ValidationMessageFor(model => model.DataMin)
+            </span>
+
+        </div>
+        <div class="col-md-3">
+
+            <div class="mt-2">
+                @Html.RadioButtonFor(model => model.Ativo, "1") <span>Ativos</span>
+                <span>&nbsp;</span>
+                @Html.RadioButtonFor(model => model.Ativo, "0") <span>Inativos</span>
+                <br />
+
+                <span class="text-danger">
+                    @Html.ValidationMessageFor(model => model.Ativo)
+                </span>
+            </div>
+
+        </div>
+        <div class="col-md-3">
+
+            <input type="submit" value="Pesquisar Eventos"
+               class="btn btn-success" />
+
+        </div>
+    </div>
+
+    @if (Model != null && Model.Eventos != null && Model.Eventos.Count > 0)
+    {
+        <div class="row mb-3">
+            <div class="col-md-12">
+                <div class="table-responsive">
+
+                    <table id="consultaEventos" class="table table-sm table-hover table-stripped">
+                        <thead>
+                            <tr>
+                                <th>Nome do Evento</th>
+                                <th>Data</th>
+                                <th>Hora</th>
+                                <th>Prioridade</th>
+                                <th>Descrição</th>
+                                <th>Operações</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.Eventos)
+                            {
+                                <tr>
+                                    <td>@item.Nome</td>
+                                    <td>@item.Data.ToString("ddd, dd/MM/yyyy")</td>
+                                    <td>@item.Hora.ToString(@"hh\:mm")</td>
+                                    <td>
+                                        @switch (item.Prioridade)
+                                        {
+                                            case 0:
+                                                <span class="badge bg-danger">ALTA</span>
+                                                break;
+                                            case 1:
+                                                <span class="badge bg-warning">MÉDIA</span>
+                                                break;
+                                            case 2:
+                                                <span class="badge bg-success">BAIXA</span>
+                                                break;
+                                        }
+                                    </td>
+                                    <td>@item.Descricao</td>
+                                    <td width="160">
+
+                                        <a href="/Evento/Edicao?idEvento=@item.IdEvento" 
+                                            class="btn btn-primary btn-sm">
+                                            Editar
+                                        </a>
+
+                                        @if (item.Ativo == 1)
+                                        {
+                                            <a href="/Evento/AlterarStatus?idEvento=@item.IdEvento"
+                                                onclick="return confirm('Deseja realmente inativar o evento?');"
+                                                class="btn btn-danger btn-sm">
+                                                Inativar
+                                            </a>
+                                        }
+                                        else if (item.Ativo == 0)
+                                        {
+                                            <a href="/Evento/AlterarStatus?idEvento=@item.IdEvento"
+                                                onclick="return confirm('Deseja realmente reativar o evento?');"
+                                                class="btn btn-info btn-sm text-white">
+                                                Reativar
+                                            </a>
+                                        }
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td colspan="6">
+                                    Quantidade de eventos: @Model.Eventos.Count
+                                </td>
+                            </tr>
+                        </tfoot>
+                    </table>
+
+                </div>
+            </div>
+        </div>
+    }
+}
+
+@* Inserir conteudo CSS na página de layout *@
+@section styles {
+<link rel="stylesheet" href="//cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css" />
+}
+
+@* Inserir conteudo JS na página de layout *@
+@section scripts {
+<script src="//cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+
+<script>
+    $(document).ready( function () {
+        $('#consultaEventos').DataTable({
+            "language" : {
+                "url" : "//cdn.datatables.net/plug-ins/1.11.5/i18n/pt-BR.json"
+            }
+        });
+    });
+</script>
+}
+
+

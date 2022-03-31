@@ -1,0 +1,90 @@
+﻿@* definindo a classe de modelo de dados da página *@
+@model AgendaWeb.Presentation.Models.EventoEdicaoModel
+
+@{
+    //definindo a página de layout
+    Layout = "~/Views/Shared/Layout.cshtml";
+}
+
+<h5>Edição de Evento</h5>
+Utilize o formulário abaixo para editar um evento.
+<hr/>
+
+@* construindo o formulário *@
+@using(Html.BeginForm())
+{
+    <span>
+        @Html.HiddenFor(model => model.IdEvento)
+    </span>
+
+    <div class="row mb-3">
+        <div class="col-md-6">
+
+            <label>Nome do Evento:</label>
+            @Html.TextBoxFor(model => model.Nome, 
+                new { @class = "form-control" })
+            <div class="text-danger">
+                @Html.ValidationMessageFor(model => model.Nome)
+            </div>
+
+        </div>
+        <div class="col-md-3">
+
+            <label>Data do Evento:</label>
+            @Html.TextBoxFor(model => model.Data, 
+                new { @class = "form-control", @type = "date" })
+            <div class="text-danger">
+                @Html.ValidationMessageFor(model => model.Data)
+            </div>
+
+        </div>
+        <div class="col-md-3">
+
+            <label>Hora do Evento:</label>
+            @Html.TextBoxFor(model => model.Hora, 
+                new { @class = "form-control", @type = "time" })
+            <div class="text-danger">
+                @Html.ValidationMessageFor(model => model.Hora)
+            </div>
+
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <div class="col-md-9">
+
+            <label>Descrição do Evento:</label>
+            @Html.TextAreaFor(model => model.Descricao, 
+                new { @class = "form-control" })
+            <div class="text-danger">
+                @Html.ValidationMessageFor(model => model.Descricao)
+            </div>
+
+        </div>
+        <div class="col-md-3">
+
+            <label>Prioridade do evento:</label>
+            <br/>
+            @Html.RadioButtonFor(model => model.Prioridade, "0") <label>Alta</label> <br/>
+            @Html.RadioButtonFor(model => model.Prioridade, "1") <label>Média</label> <br/>
+            @Html.RadioButtonFor(model => model.Prioridade, "2") <label>Baixa</label> <br/>
+            <br/>
+
+            <div class="text-danger">
+                @Html.ValidationMessageFor(model => model.Prioridade)
+            </div>
+
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <div class="col-md-12">
+
+            <input type="submit" value="Salvar Alterações"
+                class="btn btn-primary"/>
+
+        </div>
+    </div>
+}
+
+

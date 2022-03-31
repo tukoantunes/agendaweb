@@ -1,0 +1,117 @@
+﻿@using Newtonsoft.Json
+@using AgendaWeb.Presentation.Models
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
+
+@{
+    Layout = null;
+}
+
+@{
+    //ler os dados do usuário gravado em sessão
+    var json = HttpContextAccessor.HttpContext.Session.GetString("usuario");
+    var usuario = JsonConvert.DeserializeObject<UsuarioModel>(json);
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>AgendaWeb</title>
+
+    <!-- referência para os arquivos CSS do projeto -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css" />
+
+    @* Local para inserir conteudo CSS de outras páginas *@
+    @RenderSection("styles", required: false)
+
+</head>
+<body>
+
+    <!-- menu superior -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">AgendaWeb</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="/Home/Index">Página inicial</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" href="/Usuario/MinhaConta">Minha Conta</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Gerenciar Eventos
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="/Evento/Cadastro">Cadastrar Eventos</a></li>
+                            <li><a class="dropdown-item" href="/Evento/Consulta">Consultar Eventos</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="/Evento/Relatorio">Relatório de Eventos</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                <form class="d-flex">
+                    <div class="text-white">
+                        <div>@usuario.Nome</div>
+                        <div style="margin-top: -10px!important;"><small>@usuario.Email</small></div>
+                    </div>
+                    &nbsp;&nbsp;&nbsp;
+                    <a href="/Account/Logout" class="btn btn-outline-light"
+                       onclick="return confirm('Deseja realmente encerrar sua sessão e sair do sistema?');">
+                        Encerrar Sessão
+                    </a>
+                </form>
+            </div>
+        </div>
+    </nav>
+
+    <!-- mensagem de sucesso -->
+    @if (TempData["MensagemSucesso"] != null)
+    {
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <strong>Sucesso!</strong> @TempData["MensagemSucesso"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+    else if (TempData["MensagemAlerta"] != null)
+    {
+        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+            <strong>Alerta!</strong> @TempData["MensagemAlerta"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+    else if (TempData["MensagemErro"] != null)
+    {
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <strong>Erro!</strong> @TempData["MensagemErro"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+
+    <!-- corpo da página -->
+    <div class="container mt-3">
+        <div class="card card-body">
+
+            @* Local onde será exibido o conteúdo das demais páginas *@
+            @RenderBody()
+
+        </div>
+    </div>
+
+    <!-- arquivos do tipo javascript -->
+    <script src="/js/bootstrap.min.js"></script>
+    <script src="/js/jquery-3.6.0.min.js"></script>
+
+    @* Local onde será exibido o conteúdo javascript demais páginas *@
+    @RenderSection("scripts", required: false)
+
+</body>
+</html>
+
+
+
